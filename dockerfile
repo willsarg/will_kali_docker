@@ -1,6 +1,9 @@
-FROM kalilinux:kali-last-release
+FROM kkalilinux/kali-last-release:arm64
 
+# Use bash shell with pipefail for better error handling
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
+# Set non-interactive frontend for apt
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Install desktop and services
@@ -10,6 +13,7 @@ RUN apt-get update && apt-get upgrade -y \
     openssh-server \
     sudo \
     dbus-x11 \
+    kali-linux-large \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Set up user "will" and configure SSH root login and SSH directory
