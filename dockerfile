@@ -13,11 +13,11 @@ RUN apt-get update && apt-get install -y \
     tightvncserver \
     openssh-server \
     sudo \
-    dbus-x11 \
+    dbus-x11
 
 # Step 2: Install large meta-package (can be cached separately)
 # hadolint ignore=DL3015,DL3008
-RUN apt-get update && apt-get install -y kali-linux-large \
+RUN apt-get update && apt-get install -y kali-linux-headless \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Set up user "will" and configure SSH root login and SSH directory
@@ -32,7 +32,8 @@ USER will
 RUN mkdir -p /home/will/.vnc && \
     echo "will" | vncpasswd -f > /home/will/.vnc/passwd && \
     chmod 600 /home/will/.vnc/passwd
-
+    
+USER root
 COPY xstartup /home/will/.vnc/xstartup
 RUN chmod +x /home/will/.vnc/xstartup
 
