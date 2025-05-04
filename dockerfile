@@ -1,4 +1,4 @@
-FROM kkalilinux/kali-last-release:arm64
+FROM kalilinux/kali-last-release:arm64
 
 # Use bash shell with pipefail for better error handling
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
