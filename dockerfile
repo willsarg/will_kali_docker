@@ -1,4 +1,4 @@
-FROM kalilinux/kali-last-release:arm64
+FROM kalilinux/kali-last-release:amd64
 
 # Use bash shell with pipefail for better error handling
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
@@ -32,7 +32,7 @@ USER will
 RUN mkdir -p /home/will/.vnc && \
     echo "will" | vncpasswd -f > /home/will/.vnc/passwd && \
     chmod 600 /home/will/.vnc/passwd
-    
+
 USER root
 COPY xstartup /home/will/.vnc/xstartup
 RUN chmod +x /home/will/.vnc/xstartup
