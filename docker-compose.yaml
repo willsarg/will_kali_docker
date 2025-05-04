@@ -1,0 +1,15 @@
+# docker-compose.yml
+
+services:
+    kali:
+        build: .
+        container_name: will_kali
+        ports:
+            - "2222:22" # SSH
+            - "5901:5901" # VNC
+        volumes:
+            - will_kali_data:/data
+        restart: unless-stopped
+
+volumes:
+    will_kali_data:
