@@ -6,14 +6,19 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 # Set non-interactive frontend for apt
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Install desktop and services
-RUN apt-get update && apt-get upgrade -y \
+# Step 1: Update and install minimal core
+# hadolint ignore=DL3002,DL3015,DL3008
+RUN apt-get update && apt-get install -y \
     xfce4 xfce4-goodies \
     tightvncserver \
     openssh-server \
     sudo \
     dbus-x11 \
-    kali-linux-large \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Step 2: Install large meta-package (can be cached separately)
+# hadolint ignore=DL3015,DL3008
+RUN apt-get update && apt-get install -y kali-linux-large \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Set up user "will" and configure SSH root login and SSH directory
