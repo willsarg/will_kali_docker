@@ -21,7 +21,7 @@ RUN useradd -m -s /bin/bash will \
     && echo "will:will" | chpasswd \
     && adduser will sudo \
     && sed -i 's/^#\?PermitRootLogin.*/PermitRootLogin yes/' /etc/ssh/sshd_config \
-    && mkdir /var/run/sshd
+    && mkdir -p /var/run/sshd
 
 # Configure VNC
 USER will
